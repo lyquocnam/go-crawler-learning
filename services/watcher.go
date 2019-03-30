@@ -2,8 +2,8 @@ package services
 
 import (
 	"github.com/jinzhu/gorm"
-	"go_crawler/model"
-	"go_crawler/repo"
+	"github.com/lyquocnam/go-crawler-learning/model"
+	"github.com/lyquocnam/go-crawler-learning/repo"
 	"log"
 	"time"
 )

@@ -2,7 +2,7 @@ package repo
 
 import (
 	"github.com/jinzhu/gorm"
-	"go_crawler/model"
+	"github.com/lyquocnam/go-crawler-learning/model"
 )
 
 type articleRepo struct {

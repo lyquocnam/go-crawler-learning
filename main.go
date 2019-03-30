@@ -5,9 +5,9 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
-	"go_crawler/model"
-	"go_crawler/repo"
-	"go_crawler/services"
+	"github.com/lyquocnam/go-crawler-learning/model"
+	"github.com/lyquocnam/go-crawler-learning/repo"
+	"github.com/lyquocnam/go-crawler-learning/services"
 	"os"
 	"strconv"
 )

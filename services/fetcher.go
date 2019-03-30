@@ -1,7 +1,7 @@
 package services
 
 import (
-	"go_crawler/model"
+	"github.com/lyquocnam/go-crawler-learning/model"
 	"log"
 	"math/rand"
 	"time"

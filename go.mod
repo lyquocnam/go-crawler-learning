@@ -1,4 +1,4 @@
-module go_crawler
+module github.com/lyquocnam/go-crawler-learning
 
 require (
 	github.com/jinzhu/gorm v1.9.2
