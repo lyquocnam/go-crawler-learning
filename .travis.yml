@@ -1,0 +1,39 @@
+language: go
+go:
+  - "1.11.x"
+  - master
+os:
+  - linux
+  - osx
+dist: trusty
+install: true
+script:
+  - env GO111MODULE=on go build
+  - env GO111MODULE=on go test
+  - go get -t -v ./...
+  - go vet $(go list ./... | grep -v /vendor/)
+  - go test -v -race ./...
+
+before_deploy:
+  - PLATFORMS=(darwin/386 darwin/amd64 freebsd/386 freebsd/amd64 freebsd/arm linux/386 linux/amd64 linux/arm windows/386 windows/amd64)
+  # build binary for all archs
+  - |
+    for PLATFORM in "${PLATFORMS[@]}"; do
+      echo "Building $PLATFORM"
+      GOOS=${PLATFORM%/*}
+      GOARCH=${PLATFORM#*/}
+      if [ "$GOOS" = "windows" ]; then
+        build_cmd="GOOS=$GOOS GOARCH=$GOARCH go build -o tiki -ldflags '-w -s'"
+      else
+        build_cmd="CGO_ENABLED=0 GOOS=$GOOS GOARCH=$GOARCH go build -o tiki -ldflags '-d -w -s'"
+      fi
+      if ! eval $build_cmd; then
+        echo "Failed building tiki for $PLATFORM" && return 1
+      fi
+      if [ "$GOOS" = "windows" ]; then
+        zip tiki-${GOOS}-${GOARCH}.zip tiki
+      else
+        tar cvzf tiki-${GOOS}-${GOARCH}.tgz tiki
+      fi
+    done
+  - ls
